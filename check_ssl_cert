@@ -2178,10 +2178,10 @@ EOF
             fi
 
 	    if [ -n "${SNI}" ] ; then
-		JSON="$(${CURL_BIN} --silent "https://api.ssllabs.com/api/v2/analyze?host=${SNI}${IGNORE_SSL_LABS_CACHE}${SSL_LABS_USE_CACHE})"
+		JSON="$(${CURL_BIN} --silent "https://api.ssllabs.com/api/v2/analyze?host=${SNI}${IGNORE_SSL_LABS_CACHE}${SSL_LABS_USE_CACHE}")"
                 CURL_RETURN_CODE=$?
             else
-                JSON="$(${CURL_BIN} --silent "https://api.ssllabs.com/api/v2/analyze?host=${HOST}${IGNORE_SSL_LABS_CACHE}${SSL_LABS_USE_CACHE})"
+                JSON="$(${CURL_BIN} --silent "https://api.ssllabs.com/api/v2/analyze?host=${HOST}${IGNORE_SSL_LABS_CACHE}${SSL_LABS_USE_CACHE}")"
                 CURL_RETURN_CODE=$?
             fi
 
