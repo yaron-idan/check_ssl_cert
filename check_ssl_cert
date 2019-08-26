@@ -1259,6 +1259,10 @@ main() {
         echo "[DBG] ROOT_CA = ${ROOT_CA}"
     fi
 
+    if [ $IGNORE_SSL_LABS_CACHE ] && [ $SSL_LABS_USE_CACHE ] ; then
+        unknown "Cannot set both ignore-ssl-labs-cache and ssl-labs-use-cache"
+    fi
+
     #######################
     # Check needed programs
 
@@ -2216,7 +2220,7 @@ EOF
                 'ERROR')
                     SSL_LABS_STATUS_MESSAGE=$(echo "${JSON}" \
                         | sed 's/.*"statusMessage":[ ]*"\([^"]*\)".*/\1/')
-                    prepend_critical_message "Error checking SSL Labs: ${SSL_LABS_STATUS_MESSAGE}"
+                    unknown "Error checking SSL Labs: ${SSL_LABS_STATUS_MESSAGE}"
                     ;;
                 'READY')
                     if ! echo "${JSON}" | grep -q "grade" ; then
@@ -2224,7 +2228,7 @@ EOF
                         # Something went wrong
                         SSL_LABS_STATUS_MESSAGE=$(echo "${JSON}" \
                             | sed 's/.*"statusMessage":[ ]*"\([^"]*\)".*/\1/')
-                        prepend_critical_message "SSL Labs error: ${SSL_LABS_STATUS_MESSAGE}"
+                        unknown "SSL Labs error: ${SSL_LABS_STATUS_MESSAGE}"
 
                     else
 
@@ -2282,7 +2286,7 @@ EOF
                         SSL_LABS_ERROR_MESSAGE="${JSON}"
                     fi
 
-                    prepend_critical_message "Cannot check status on SSL Labs: ${SSL_LABS_ERROR_MESSAGE}"
+                    unkonwn "Cannot check status on SSL Labs: ${SSL_LABS_ERROR_MESSAGE}"
             esac
 
             WAIT_TIME=60
