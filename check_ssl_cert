@@ -637,7 +637,9 @@ var_for_sed() {
 #  $2 file
 #
 ascii_grep() {
-    tr -d '\000' < "$2" | grep -q "$1"
+    tr -d '\000' 
+    
+    "$2" | grep -q "$1"
 }
 
 
@@ -1250,7 +1252,7 @@ main() {
     if [ -n "${SSL_LAB_WARN_ASSESTMENT}" ] ; then
         convert_ssl_lab_grade "${SSL_LAB_WARN_ASSESTMENT}"
         SSL_LAB_WARN_ASSESTMENT_NUMERIC="${NUMERIC_SSL_LAB_GRADE}"
-        if ( "${SSL_LAB_WARN_ASSESTMENT_NUMERIC}" < "${SSL_LAB_CRIT_ASSESSMENT_NUMERIC}" ); then
+        if [ "${SSL_LAB_WARN_ASSESTMENT_NUMERIC}" -lt "${SSL_LAB_CRIT_ASSESSMENT_NUMERIC}" ]; then
             unknown  "--check-ssl-labs-warn-grade must be greater than -L|--check-ssl-labs"
         fi
     fi
